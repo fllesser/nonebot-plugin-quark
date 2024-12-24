@@ -1,8 +1,8 @@
 <div align="center">
-  <a href="https://v2.nonebot.dev/store"><img src="https://github.com/A-kirami/nonebot-plugin-quark/blob/resources/nbp_logo.png" width="180" height="180" alt="NoneBotPluginLogo"></a>
-  <br>
-  <p><img src="https://github.com/A-kirami/nonebot-plugin-quark/blob/resources/NoneBotPlugin.svg" width="240" alt="NoneBotPluginText"></p>
+    <a href="https://v2.nonebot.dev/store">
+    <img src="./.docs/NoneBotPlugin.svg" width="300" alt="logo"></a>
 </div>
+
 
 <div align="center">
 
@@ -17,26 +17,10 @@ _✨ 夸克云盘资源搜索 ✨_
 <a href="https://pypi.python.org/pypi/nonebot-plugin-quark">
     <img src="https://img.shields.io/pypi/v/nonebot-plugin-quark.svg" alt="pypi">
 </a>
-<img src="https://img.shields.io/badge/python-3.9+-blue.svg" alt="python">
+<img src="https://img.shields.io/badge/python-3.10+-blue.svg" alt="python">
 
 </div>
 
-</details>
-
-> [!NOTE]
-> 模板库中自带了一个发布工作流, 你可以使用此工作流自动发布你的插件到 pypi
-
-<details>
-<summary>配置发布工作流</summary>
-
-1. 前往 https://pypi.org/manage/account/#api-tokens 并创建一个新的 API 令牌。创建成功后不要关闭页面，不然你将无法再次查看此令牌。
-2. 在单独的浏览器选项卡或窗口中，打开 [Actions secrets and variables](./settings/secrets/actions) 页面。你也可以在 Settings - Secrets and variables - Actions 中找到此页面。
-3. 点击 New repository secret 按钮，创建一个名为 `PYPI_API_TOKEN` 的新令牌，并从第一步复制粘贴令牌。
-
-</details>
-
-> [!IMPORTANT]
-> 这个发布工作流需要 pyproject.toml 文件, 并且只支持 [PEP 621](https://peps.python.org/pep-0621/) 标准的 pyproject.toml 文件
 
 <details>
 <summary>触发发布工作流</summary>
@@ -106,7 +90,6 @@ _✨ 夸克云盘资源搜索 ✨_
 ### 指令表
 | 指令 | 权限 | 需要@ | 范围 | 说明 |
 |:-----:|:----:|:----:|:----:|:----:|
-
 | qs | 群员 | 否 | - | 搜索 |
 
 
