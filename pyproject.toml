@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "nonebot-plugin-quark"
+version = "0.0.1"
+description = "NoneBot2 夸克云盘资源搜索插件"
+authors = ["fllesser <fllessive@gmail.com>"]
+readme = "README.md"
+packages = [{include = "nonebot_plugin_quark"}]
+repository = "https://github.com/fllesser/nonebot-plugin-quark"
+keywords = ["nonebot", "nonebot2", "quark", "search"]
+
+[tool.poetry.dependencies]
+python = ">=3.10"
+httpx = "<0.28.0"
+nonebot2 = ">=2.3.0"
+nonebot-adapter-onebot = "*"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
