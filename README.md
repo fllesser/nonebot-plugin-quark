@@ -22,23 +22,10 @@ _✨ 夸克云盘资源搜索 ✨_
 </div>
 
 
-<details>
-<summary>触发发布工作流</summary>
-从本地推送任意 tag 即可触发。
-
-创建 tag:
-
-    git tag <tag_name>
-
-推送本地所有 tag:
-
-    git push origin --tags
-
-</details>
 
 ## 📖 介绍
 
-这里是插件的详细介绍部分
+夸克云盘搜索插件
 
 ## 💿 安装
 

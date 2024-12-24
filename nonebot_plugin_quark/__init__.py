@@ -4,7 +4,7 @@ from nonebot.plugin import on_command
 from nonebot.params import CommandArg
 from nonebot.adapters.onebot.v11 import (
     Bot,
-    Message，
+    Message,
     MessageEvent,
     MessageSegment
 )
