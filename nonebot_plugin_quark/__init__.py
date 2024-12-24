@@ -4,13 +4,25 @@ from nonebot.plugin import on_command
 from nonebot.params import CommandArg
 from nonebot.adapters.onebot.v11 import (
     Bot,
-    MessageSegment,
-    Message,
+    Message，
     MessageEvent,
-    PRIVATE
+    MessageSegment
 )
 
+from nonebot.plugin import PluginMetadata
+
 from .data_source import search
+
+
+__plugin_meta__ = PluginMetadata(
+    name="夸克搜",
+    description="NoneBot2 夸克资源搜索插件",
+    usage="qs 关键词",
+    type="application",
+    homepage="https://github.com/fllesser/nonebot-plugin-quark",
+    supported_adapters={ "~onebot.v11" }
+)
+
 
 quark = on_command(cmd='qs', block=True)
 
