@@ -23,18 +23,21 @@ class UrlInfo:
     
 
 async def search(keyword: str) -> list[UrlInfo]:
-    share_id_set = await search_quark_so(keyword)
-    #......
+    local_share_id_set = await search_quark_so(keyword)
+    entire_share_id_set = await search_quark_so(keyword, 2)
+    
+    share_id_set = local_share_id_set | entire_share_id_set
     
     url_info_list = [info for share_id in share_id_set if (info := await get_url_info(share_id))]
     return sorted(url_info_list)
 
 
-async def search_quark_so(keyword: str) -> set[str]:
+async def search_quark_so(keyword: str, type: int = 1) -> set[str]:
     url = "https://www.quark.so/s"
 
     params = {
-        'query': keyword
+        'query': keyword,
+        'type': type
     }
     
     headers = {
