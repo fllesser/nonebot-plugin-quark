@@ -16,7 +16,7 @@ class UrlInfo:
         self.last_update_at = last_update_at
   
     def __str__(self) -> str:
-        return f"{self.title}\n\n{self.share_url}\n\n上次更新: {self.last_update_at}"
+        return f"标题: {self.title}\n链接: {self.share_url}\n\n更新时间: {self.last_update_at}"
     
     def __lt__(self, other):
         return self.last_update_at > other.last_update_at
