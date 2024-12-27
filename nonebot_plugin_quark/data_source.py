@@ -4,6 +4,12 @@ import json
 import asyncio
 import datetime
 
+from tenacity import (
+    retry,
+    stop_after_attempt, 
+    wait_fixed
+)
+
 class UrlInfo:
     def __init__(
         self,
@@ -32,6 +38,8 @@ async def search(keyword: str) -> list[UrlInfo]:
     return sorted(url_info_list)
 
 
+
+@retry(stop=stop_after_attempt(3), wait=wait_fixed(2))
 async def search_quark_so(keyword: str, type: int = 1) -> set[str]:
     url = "https://www.quark.so/s"
 
