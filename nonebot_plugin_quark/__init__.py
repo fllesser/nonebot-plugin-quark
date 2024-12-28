@@ -31,7 +31,7 @@ async def _(bot: Bot, event: MessageEvent, args: Message = CommandArg()):
     keyword = args.extract_plain_text().strip()
     if not keyword:
         return
-    await bot.send("搜索资源中...")
+    msg_id = (await quark.send("搜索资源中...")).get('message_id')
     try: 
         if url_info_list := await search(keyword):
             format_info_list = [str(info) for info in url_info_list]
@@ -40,8 +40,8 @@ async def _(bot: Bot, event: MessageEvent, args: Message = CommandArg()):
             res = "未搜索到相关资源"
     except Exception as e:
         res = f"搜索出错: {e}"
-    await quark.finish(res)
-    
+    await quark.send(res)
+    await bot.delete_msg(message_id=msg_id)
 
 def construct_nodes(user_id: int, segments: MessageSegment | list) -> Message:
     def node(content):
