@@ -15,7 +15,7 @@ class UrlInfo:
         self,
         title: str,
         share_url: str,
-        last_update_at: str = '2000-01-01 00:00:00'
+        last_update_at: str
     ):
         self.title = title
         self.share_url = share_url
@@ -27,7 +27,12 @@ class UrlInfo:
     def __lt__(self, other):
         return self.last_update_at > other.last_update_at
     
-
+    def relevance(self, keyword: str) -> int:
+        # 将关键词拆成单个汉字
+        chars = list(keyword)
+        # 计算每个汉字在标题中出现的次数
+        return sum(self.title.count(char) for char in chars)
+        
 async def search(keyword: str) -> list[UrlInfo]:
     local_share_id_set = await search_quark_so(keyword)
     entire_share_id_set = await search_quark_so(keyword, 2)
