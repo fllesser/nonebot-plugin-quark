@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "nonebot-plugin-quark"
-version = "0.0.7"
+version = "0.1.0"
 description = "NoneBot2 夸克云盘资源搜索插件"
 authors = ["fllesser <fllessive@gmail.com>"]
 readme = "README.md"
