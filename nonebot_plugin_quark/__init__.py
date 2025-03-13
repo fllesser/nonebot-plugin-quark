@@ -1,11 +1,8 @@
-from nonebot.plugin import on_command
-from nonebot.params import CommandArg
 from nonebot.adapters.onebot.v11 import Bot, Message, MessageEvent, MessageSegment
-
-from nonebot.plugin import PluginMetadata
+from nonebot.params import CommandArg
+from nonebot.plugin import PluginMetadata, on_command
 
 from .data_source import search
-
 
 __plugin_meta__ = PluginMetadata(
     name="夸克搜",
@@ -40,9 +37,7 @@ async def _(bot: Bot, event: MessageEvent, args: Message = CommandArg()):
 
 def construct_nodes(user_id: int, segments: MessageSegment | list) -> Message:
     def node(content):
-        return MessageSegment.node_custom(
-            user_id=user_id, nickname="Quark", content=content
-        )
+        return MessageSegment.node_custom(user_id=user_id, nickname="Quark", content=content)
 
     segments = segments if isinstance(segments, list) else [segments]
     return Message([node(seg) for seg in segments])
