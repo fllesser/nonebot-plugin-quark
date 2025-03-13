@@ -1,7 +1,7 @@
-import re
-import httpx
 import datetime
+import re
 
+import httpx
 from tenacity import retry, stop_after_attempt, wait_fixed
 
 
@@ -32,23 +32,19 @@ async def search(keyword: str) -> list[UrlInfo]:
 
     share_id_set = local_share_id_set | entire_share_id_set
 
-    url_info_list = [
-        info
-        for share_id in share_id_set
-        if (info := await get_url_info(keyword, share_id))
-    ]
+    url_info_list = [info for share_id in share_id_set if (info := await get_url_info(keyword, share_id))]
     return sorted(url_info_list)
 
 
-@retry(stop=stop_after_attempt(3), wait=wait_fixed(2))
+@retry(stop=stop_after_attempt(3), wait=wait_fixed(4))
 async def search_quark_so(keyword: str, type: int = 1) -> set[str]:
     url = "https://www.quark.so/s"
 
     params = {"query": keyword, "type": type}
 
     headers = {
-        "User-Agent": "Mozilla/5.0 (Linux; Android 10; VOG-AL00 Build/HUAWEIVOG-AL00) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.88 Mobile Safari/537.36",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+        "User-Agent": "Mozilla/5.0 (Linux; Android 10; VOG-AL00 Build/HUAWEIVOG-AL00) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.88 Mobile Safari/537.36",  # noqa: E501
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",  # noqa: E501
         "referer": "https://www.quark.so/res/new/zuixinquark",
     }
 
@@ -86,7 +82,7 @@ async def get_url_info(keyword: str, share_id: str) -> UrlInfo | None:
     }
 
     headers = {
-        "User-Agent": "Mozilla/5.0 (Linux; Android 10; VOG-AL00 Build/HUAWEIVOG-AL00) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.88 Mobile Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Linux; Android 10; VOG-AL00 Build/HUAWEIVOG-AL00) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.88 Mobile Safari/537.36",  # noqa: E501
         "Accept": "application/json, text/plain, */*",
         "Accept-Encoding": "gzip, deflate",
         "content-type": "application/json;charset=UTF-8",
