@@ -18,14 +18,16 @@ __plugin_meta__ = PluginMetadata(
 from arclet.alconna import Alconna, Args
 from nonebot_plugin_alconna import Match, on_alconna
 from nonebot_plugin_alconna.uniseg import Text, UniMessage
-
-alc = Alconna(
-    "qs",
-    Args["keyword", str],
-)
+from nonebot_plugin_uninfo import PRIVATE
 
 
-@on_alconna(alc).handle()
+@on_alconna(
+    Alconna(
+        "qs",
+        Args["keyword", str],
+    ),
+    rule=PRIVATE,
+).handle()
 async def _(keyword: Match[str]):
     if not keyword.available:
         return
@@ -43,7 +45,8 @@ async def _(keyword: Match[str]):
     if not url_info_lst:
         await UniMessage.text("未搜索到相关资源，请稍后再试").finish()
     text_lst = [Text(str(info)) for info in url_info_lst]
-    await UniMessage(text_lst).send()
+    for text in text_lst:
+        await UniMessage(text).send()
 
 
 # def construct_nodes(user_id: int, segments: MessageSegment | list) -> Message:

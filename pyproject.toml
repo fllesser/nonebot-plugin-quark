@@ -12,10 +12,11 @@ dependencies = [
     "tenacity>=9.0.0",
     "nonebot2>=2.4.0",
     "nonebot-plugin-alconna>=0.56.2",
+    "nonebot-plugin-uninfo>=0.6.10",
 ]
 
 [dependency-groups]
-dev = ["nonebot2[fastapi]>=2.4.2,<3.0.0", "ruff>=0.9.10,<1.0.0"]
+dev = ["nonebot2[fastapi]>=2.4.2,<3.0.0", "ruff>=0.10.0,<1.0.0"]
 
 test = [
     "nonebot2[fastapi]>=2.4.2,<3.0.0",

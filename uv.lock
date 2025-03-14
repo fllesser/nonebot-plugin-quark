@@ -491,6 +491,7 @@ source = { virtual = "." }
 dependencies = [
     { name = "httpx" },
     { name = "nonebot-plugin-alconna" },
+    { name = "nonebot-plugin-uninfo" },
     { name = "nonebot2" },
     { name = "tenacity" },
 ]
@@ -512,6 +513,7 @@ test = [
 requires-dist = [
     { name = "httpx", specifier = ">=0.26.0,<1.0.0" },
     { name = "nonebot-plugin-alconna", specifier = ">=0.56.2" },
+    { name = "nonebot-plugin-uninfo", specifier = ">=0.6.10" },
     { name = "nonebot2", specifier = ">=2.4.0" },
     { name = "tenacity", specifier = ">=9.0.0" },
 ]
@@ -527,6 +529,19 @@ test = [
     { name = "nonebug", specifier = ">=0.3.7,<1.0.0" },
     { name = "pytest-asyncio", specifier = ">=0.23.6,<1.0.0" },
     { name = "pytest-xdist", specifier = ">=3.6.1,<4.0.0" },
+]
+
+[[package]]
+name = "nonebot-plugin-uninfo"
+version = "0.6.10"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "importlib-metadata" },
+    { name = "nonebot2" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/63/64/1afc9d26af007b85cc7a60b160277b41369f9e3b71dfb108f516e27f1ba5/nonebot_plugin_uninfo-0.6.10.tar.gz", hash = "sha256:6b1a6789b7abcaac54bc33c5ac995461c24d15f81b4e5ba16b84c5a0147c8041", size = 36193 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/52/82/1f7328268ff001dd2117f95a931329ce0b11454c16662399c2d7ac29033c/nonebot_plugin_uninfo-0.6.10-py3-none-any.whl", hash = "sha256:47640767b6beebb3b90dc003f58435a88e3ff89e87e35a97233600d9218eb374", size = 56695 },
 ]
 
 [[package]]
