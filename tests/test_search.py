@@ -12,5 +12,8 @@ async def test_search():
     result = await search("剑来")
     end_time = time.time()
     logger.info(f"Took: {end_time - start_time} s")
+    assert result
     for info in result:
-        logger.info(f"{info.title} {info.share_url} {info.last_update_at}")
+        logger.info(f"{info.title} 最后更新时间: {info.last_update_at}")
+        logger.info(f"  🔗：{info.share_url}")
+        logger.info(f"  相关度: {info.relevance}")
