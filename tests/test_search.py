@@ -11,6 +11,6 @@ async def test_search():
     start_time = time.time()
     result = await search("剑来")
     end_time = time.time()
-    logger.info(f"搜索时间: {end_time - start_time} 秒")
+    logger.info(f"Took: {end_time - start_time} s")
     for info in result:
         logger.info(f"{info.title} {info.share_url} {info.last_update_at}")
