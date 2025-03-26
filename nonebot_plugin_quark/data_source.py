@@ -28,8 +28,9 @@ class UrlInfo:
 
 
 async def search(keyword: str) -> list[UrlInfo]:
-    local_share_id_set = await search_quark_so(keyword)
-    entire_share_id_set = await search_quark_so(keyword, 2)
+    # 并发搜索 local_share_id_set 和 entire_share_id_set
+    tasks = [search_quark_so(keyword), search_quark_so(keyword, 2)]
+    local_share_id_set, entire_share_id_set = await asyncio.gather(*tasks)
 
     share_id_set = local_share_id_set | entire_share_id_set
     # 使用 asyncio.gather 并发获取 url_info, 并过滤掉 None
