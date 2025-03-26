@@ -1,4 +1,4 @@
-from nonebot import on_command, require  # noqa: F401
+from nonebot import require
 from nonebot.plugin import PluginMetadata, inherit_supported_adapters
 
 require("nonebot_plugin_alconna")
@@ -47,11 +47,3 @@ async def _(keyword: Match[str]):
     text_lst = [Text(str(info)) for info in url_info_lst]
     for text in text_lst:
         await UniMessage(text).send()
-
-
-# def construct_nodes(user_id: int, segments: MessageSegment | list) -> Message:
-#     def node(content):
-#         return MessageSegment.node_custom(user_id=user_id, nickname="Quark", content=content)
-
-#     segments = segments if isinstance(segments, list) else [segments]
-#     return Message([node(seg) for seg in segments])
