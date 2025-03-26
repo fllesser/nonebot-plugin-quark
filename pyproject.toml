@@ -1,6 +1,6 @@
 [project]
 name = "nonebot-plugin-quark"
-version = "0.1.0"
+version = "0.1.1"
 description = "NoneBot2 夸克云盘资源搜索插件"
 authors = [{ name = "fllesser", email = "fllessive@gmail.com" }]
 readme = "README.md"
