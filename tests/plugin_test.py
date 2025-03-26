@@ -31,18 +31,8 @@ async def test_load(app: App):
     from nonebot import require
 
     assert require("nonebot_plugin_quark")
-    # import nonebot
-    # from nonebot.adapters.onebot.v11 import Adapter as OnebotV11Adapter
 
-    # event = make_onebot_msg(Message("pip install nonebot2"))
-    # try:
-    #     from nonebot_plugin_quark import pip
-    # except ImportError:
-    #     pytest.skip("nonebot_plugin_quark.pip not found")
 
-    # async with app.test_matcher(pip) as ctx:
-    #     adapter = nonebot.get_adapter(OnebotV11Adapter)
-    #     bot = ctx.create_bot(base=Bot, adapter=adapter)
-    #     ctx.receive_event(bot, event)
-    #     ctx.should_call_send(event, Message("nonebot2"), result=None, bot=bot)
-    #     ctx.should_finished()
+@pytest.mark.asyncio
+async def test_quark_so():
+    pass
