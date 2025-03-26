@@ -1,6 +1,7 @@
-from nonebot.adapters.onebot.v11 import Bot, Message, MessageEvent, MessageSegment
-from nonebot.params import CommandArg
-from nonebot.plugin import PluginMetadata, on_command
+from nonebot import require
+from nonebot.plugin import PluginMetadata, inherit_supported_adapters
+
+require("nonebot_plugin_alconna")
 
 from .data_source import search
 
@@ -10,34 +11,39 @@ __plugin_meta__ = PluginMetadata(
     usage="qs 关键词",
     type="application",
     homepage="https://github.com/fllesser/nonebot-plugin-quark",
-    supported_adapters={"~onebot.v11"},
+    supported_adapters=inherit_supported_adapters("nonebot_plugin_alconna"),
+    extra={"author": "fllesser <fllessive@gmail.com>"},
 )
 
+from arclet.alconna import Alconna, Args
+from nonebot_plugin_alconna import Match, on_alconna
+from nonebot_plugin_alconna.uniseg import Text, UniMessage
+from nonebot_plugin_uninfo import PRIVATE
 
-quark = on_command(cmd="qs", block=True)
 
-
-@quark.handle()
-async def _(bot: Bot, event: MessageEvent, args: Message = CommandArg()):
-    keyword = args.extract_plain_text().strip()
-    if not keyword:
+@on_alconna(
+    Alconna(
+        "qs",
+        Args["keyword", str],
+    ),
+    rule=PRIVATE,
+).handle()
+async def _(keyword: Match[str]):
+    if not keyword.available:
         return
-    msg_id = (await quark.send("搜索资源中...")).get("message_id")
+    kwd: str = keyword.result
+
+    receipt = await UniMessage.text("搜索资源中...").send()
     try:
-        if url_info_list := await search(keyword):
-            format_info_list = [str(info) for info in url_info_list]
-            res = construct_nodes(int(bot.self_id), format_info_list)
-        else:
-            res = "未搜索到相关资源"
+        url_info_lst = await search(kwd)
     except Exception as e:
-        res = f"搜索出错: {e}"
-    await quark.send(res)
-    await bot.delete_msg(message_id=msg_id)
+        await UniMessage.text(f"搜索出错: {e}").send()
+        raise
+    finally:
+        await receipt.recall()
 
-
-def construct_nodes(user_id: int, segments: MessageSegment | list) -> Message:
-    def node(content):
-        return MessageSegment.node_custom(user_id=user_id, nickname="Quark", content=content)
-
-    segments = segments if isinstance(segments, list) else [segments]
-    return Message([node(seg) for seg in segments])
+    if not url_info_lst:
+        await UniMessage.text("未搜索到相关资源，请稍后再试").finish()
+    text_lst = [Text(str(info)) for info in url_info_lst]
+    for text in text_lst:
+        await UniMessage(text).send()
