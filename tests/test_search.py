@@ -13,4 +13,4 @@ async def test_search():
     end_time = time.time()
     logger.info(f"搜索时间: {end_time - start_time} 秒")
     for info in result:
-        logger.info(info)
+        logger.info(f"{info.title} {info.share_url} {info.last_update_at}")
