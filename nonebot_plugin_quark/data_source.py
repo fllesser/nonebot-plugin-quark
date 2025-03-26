@@ -1,3 +1,4 @@
+import asyncio
 import datetime
 import re
 
@@ -27,12 +28,15 @@ class UrlInfo:
 
 
 async def search(keyword: str) -> list[UrlInfo]:
-    local_share_id_set = await search_quark_so(keyword)
-    entire_share_id_set = await search_quark_so(keyword, 2)
+    # 并发搜索 local_share_id_set 和 entire_share_id_set
+    tasks = [search_quark_so(keyword), search_quark_so(keyword, 2)]
+    local_share_id_set, entire_share_id_set = await asyncio.gather(*tasks)
 
     share_id_set = local_share_id_set | entire_share_id_set
-
-    url_info_list = [info for share_id in share_id_set if (info := await get_url_info(keyword, share_id))]
+    # 使用 asyncio.gather 并发获取 url_info, 并过滤掉 None
+    url_info_list = await asyncio.gather(*[get_url_info(keyword, share_id) for share_id in share_id_set])
+    # 过滤掉 None
+    url_info_list = [info for info in url_info_list if info is not None]
     return sorted(url_info_list)
 
 
