@@ -39,6 +39,11 @@
 在 nonebot2 项目的插件目录下, 打开命令行, 根据你使用的包管理器, 输入相应的安装命令
 
 <details>
+<summary>conda</summary>
+
+    uv add nonebot-plugin-quark
+</details>
+<details>
 <summary>pip</summary>
 
     pip install nonebot-plugin-quark --upgrade -i https://pypi.org/simple
@@ -53,11 +58,7 @@
 
     poetry add nonebot-plugin-quark
 </details>
-<details>
-<summary>conda</summary>
 
-    conda install nonebot-plugin-quark
-</details>
 
 打开 nonebot2 项目根目录下的 `pyproject.toml` 文件, 在 `[tool.nonebot]` 部分追加写入
 
