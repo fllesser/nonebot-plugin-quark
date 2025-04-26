@@ -1,15 +1,8 @@
 <div align="center">
     <a href="https://v2.nonebot.dev/store">
-    <img src="./.docs/NoneBotPlugin.svg" width="300" alt="logo"></a>
-</div>
+    <img src="https://raw.githubusercontent.com/fllesser/nonebot-plugin-template/refs/heads/resource/.docs/NoneBotPlugin.svg" width="310" alt="logo"></a>
 
-
-<div align="center">
-
-# nonebot-plugin-quark
-
-_✨ 夸克云盘资源搜索 ✨_
-
+## ✨ nonebot-plugin-quark ✨
 
 <a href="./LICENSE">
     <img src="https://img.shields.io/github/license/fllesser/nonebot-plugin-quark.svg" alt="license">
