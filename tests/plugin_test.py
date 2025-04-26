@@ -27,7 +27,7 @@ def make_onebot_msg(message: Message) -> GroupMessageEvent:
 
 
 @pytest.mark.asyncio
-async def test_pip(app: App):
+async def test_quark(app: App):
     pass
     # import nonebot
     # from nonebot.adapters.onebot.v11 import Adapter as OnebotV11Adapter
