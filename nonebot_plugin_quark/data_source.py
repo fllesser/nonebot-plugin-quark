@@ -113,6 +113,8 @@ class QuarkSearch:
         }
         try:
             resp = await self.client.post(url, params=params, json=payload, headers=headers)
+            if resp.status_code != 200:
+                return None
             detail_info = resp.json()["data"]["detail_info"]
             detail_info = DetailInfo(**detail_info)
         except Exception:
