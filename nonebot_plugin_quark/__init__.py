@@ -2,7 +2,7 @@ from nonebot.adapters.onebot.v11 import Bot, Message, MessageEvent, MessageSegme
 from nonebot.params import CommandArg
 from nonebot.plugin import PluginMetadata, on_command
 
-from .data_source import search
+from .data_source import QuarkSearch
 
 __plugin_meta__ = PluginMetadata(
     name="夸克搜",
@@ -24,7 +24,9 @@ async def _(bot: Bot, event: MessageEvent, args: Message = CommandArg()):
         return
     msg_id = (await quark.send("搜索资源中...")).get("message_id")
     try:
-        if url_info_list := await search(keyword):
+        async with QuarkSearch(keyword) as client:
+            url_info_list = await client.search()
+        if url_info_list:
             format_info_list = [str(info) for info in url_info_list]
             res = construct_nodes(int(bot.self_id), format_info_list)
         else:
