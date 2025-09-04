@@ -132,6 +132,7 @@ class QuarkSearch:
         # 格式化输出为年月日时分秒
         return dt.strftime("%Y-%m-%d %H:%M:%S")
 
+
 from pydantic import BaseModel
 
 
