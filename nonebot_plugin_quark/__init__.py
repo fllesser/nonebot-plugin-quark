@@ -1,4 +1,7 @@
+from collections.abc import Sequence
+
 from nonebot.adapters.onebot.v11 import Bot, Message, MessageEvent, MessageSegment
+from nonebot.log import logger
 from nonebot.params import CommandArg
 from nonebot.plugin import PluginMetadata, on_command
 
@@ -31,15 +34,24 @@ async def _(bot: Bot, event: MessageEvent, args: Message = CommandArg()):
             res = construct_nodes(int(bot.self_id), format_info_list)
         else:
             res = "未搜索到相关资源"
-    except Exception as e:
-        res = f"搜索出错: {e}"
+    except Exception:
+        logger.exception("搜索资源失败")
+        res = "搜索出错"
     await quark.send(res)
     await bot.delete_msg(message_id=msg_id)
 
 
-def construct_nodes(user_id: int, segments: MessageSegment | list) -> Message:
-    def node(content):
-        return MessageSegment.node_custom(user_id=user_id, nickname="Quark", content=content)
+def construct_nodes(user_id: int, segments: Sequence[Message | MessageSegment | str]) -> Message:
+    """构造节点
 
-    segments = segments if isinstance(segments, list) else [segments]
+    Args:
+        segments (Sequence[Message | MessageSegment | str]): 消息段
+
+    Returns:
+        Message: 消息
+    """
+
+    def node(content):
+        return MessageSegment.node_custom(user_id=user_id, nickname="夸克搜", content=content)
+
     return Message([node(seg) for seg in segments])
