@@ -6,10 +6,11 @@ import pytest
 async def test_search():
     import time
 
-    from nonebot_plugin_quark.data_source import search
+    from nonebot_plugin_quark.data_source import QuarkSearch
 
     start_time = time.time()
-    result = await search("剑来")
+    async with QuarkSearch("基地3") as client:
+        result = await client.search()
     end_time = time.time()
     logger.info(f"Took: {end_time - start_time} s")
     assert result
