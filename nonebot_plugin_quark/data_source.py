@@ -32,10 +32,14 @@ class UrlInfo:
 
 class QuarkSearch:
     def __init__(self, keyword: str):
+        self.user_agent = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/55.0.2883.87 UBrowser/6.2.4098.3 Safari/537.36"
+        }
         self.keyword = keyword
 
     async def __aenter__(self):
-        self.client = httpx.AsyncClient(timeout=30)
+        self.client = httpx.AsyncClient(timeout=httpx.Timeout(10, connect=15, read=20), headers=self.user_agent)
         # 可能还需要其他初始化
         return self
 
@@ -65,12 +69,12 @@ class QuarkSearch:
         params = {"query": self.keyword, "type": type}
 
         headers = {
-            "User-Agent": "Mozilla/5.0 (Linux; Android 10; VOG-AL00 Build/HUAWEIVOG-AL00) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.88 Mobile Safari/537.36",  # noqa: E501
             "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",  # noqa: E501
             "referer": "https://www.quark.so/res/new/zuixinquark",
         }
 
         resp = await self.client.get(url, params=params, headers=headers)
+
         return self._get_ids_from_text(resp.text)
 
     def _get_ids_from_text(self, text: str) -> set[str]:
@@ -101,7 +105,6 @@ class QuarkSearch:
         }
 
         headers = {
-            "User-Agent": "Mozilla/5.0 (Linux; Android 10; VOG-AL00 Build/HUAWEIVOG-AL00) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.88 Mobile Safari/537.36",  # noqa: E501
             "Accept": "application/json, text/plain, */*",
             "Accept-Encoding": "gzip, deflate",
             "content-type": "application/json;charset=UTF-8",
@@ -113,12 +116,15 @@ class QuarkSearch:
             detail_info = resp.json()["data"]["detail_info"]
             detail_info = DetailInfo(**detail_info)
         except Exception:
+            logger.exception("获取 url_info 失败")
             return None
-        try:
+
+        if len(detail_info.list) > 0:
             last_update_at = int(detail_info.list[0].last_update_at) // 1000
             last_update_at = self.format_time(last_update_at)
-        except Exception:
-            last_update_at = "2000-01-01 00:00:00"
+        else:
+            last_update_at = "获取失败"
+
         return UrlInfo(
             title=detail_info.share.title,
             keyword=keyword,
