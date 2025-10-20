@@ -49,8 +49,9 @@ class QuarkSearch:
 
     async def search(self) -> list[UrlInfo]:
         # 并发搜索 local_share_id_set 和 entire_share_id_set
-        tasks = [self._quark_so(), self._quark_so(2)]
-        local_share_id_set, entire_share_id_set = await asyncio.gather(*tasks)
+        # tasks = [self._quark_so(), self._quark_so(2)]
+        local_share_id_set = await self._quark_so()
+        entire_share_id_set = await self._quark_so(2)
         logger.debug(f"local_share_id_set: {local_share_id_set}")
         logger.debug(f"entire_share_id_set: {entire_share_id_set}")
 
